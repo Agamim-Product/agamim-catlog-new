@@ -1,0 +1,156 @@
+/* Home hero: "dark premium" look. Hooks (.agm-hero, .agm-greet*) are set in the app bundle. */
+
+.agm-hero {
+  border-radius: 28px;
+  isolation: isolate;
+  background:
+    radial-gradient(520px 380px at 17% 50%, rgba(60, 140, 200, 0.38), transparent 70%),
+    radial-gradient(700px 300px at 85% 0%, rgba(23, 64, 95, 0.9), transparent 70%),
+    radial-gradient(500px 260px at 60% 110%, rgba(224, 112, 32, 0.1), transparent 70%),
+    linear-gradient(135deg, #0f2d48 0%, #0a2236 55%, #07182a 100%);
+  box-shadow: 0 20px 50px -20px rgba(10, 34, 54, 0.6), inset 0 0 0 1px rgba(255, 255, 255, 0.07);
+}
+
+/* faint grid, fading away from the logo side */
+.agm-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 44px 44px;
+  -webkit-mask-image: linear-gradient(to right, #000, transparent 70%);
+  mask-image: linear-gradient(to right, #000, transparent 70%);
+}
+[dir="rtl"] .agm-hero::before {
+  -webkit-mask-image: linear-gradient(to left, transparent 30%, #000);
+  mask-image: linear-gradient(to left, transparent 30%, #000);
+}
+
+/* concentric rings behind the logo */
+.agm-hero::after {
+  content: "";
+  position: absolute;
+  inset-inline-end: 3.5rem;
+  top: 50%;
+  width: 440px;
+  height: 440px;
+  transform: translateY(-50%);
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 0 40px rgba(255, 255, 255, 0.015), 0 0 0 41px rgba(255, 255, 255, 0.05);
+}
+
+/* the old contour svg is quieter, the logo gets a glow */
+.agm-hero > svg {
+  opacity: 0.55;
+}
+.agm-hero > img {
+  z-index: 1;
+  filter: drop-shadow(0 12px 30px rgba(0, 0, 0, 0.45));
+}
+.agm-hero > div {
+  z-index: 2;
+}
+
+/* ---- Greeting: the emphasized line ---- */
+.agm-hero .agm-greet {
+  display: flex;
+  align-items: center;
+  margin: 0 0 14px;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+  color: #fff;
+}
+.agm-hero .agm-greet::before {
+  content: "";
+  flex: none;
+  width: 28px;
+  height: 3px;
+  margin-inline-end: 12px;
+  border-radius: 3px;
+  background: #e07020;
+}
+/* both parts inherit the same size, weight and color */
+.agm-hero .agm-greet-hello,
+.agm-hero .agm-greet-role {
+  font: inherit;
+  color: inherit;
+}
+.agm-hero .agm-greet-hello::after {
+  content: ",\00a0";
+}
+
+/* ---- Title ---- */
+.agm-hero h1 {
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  background: linear-gradient(180deg, #fff 30%, #b9d0e3);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.agm-hero h1 + p {
+  color: rgba(255, 255, 255, 0.58);
+  letter-spacing: 0.02em;
+}
+
+/* ---- Glass search ---- */
+.agm-hero form[role="search"] {
+  align-items: center;
+  gap: 0;
+  padding: 8px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.07));
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  box-shadow:
+    0 10px 30px -10px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 0 0 4px rgba(120, 180, 230, 0.08);
+}
+.agm-hero form[role="search"] input {
+  min-height: 46px;
+  padding-block: 0.6rem;
+  color: #fff;
+  background: transparent;
+  box-shadow: none;
+  border-radius: 12px;
+}
+.agm-hero form[role="search"] input::placeholder {
+  color: rgba(255, 255, 255, 0.62);
+}
+.agm-hero form[role="search"] svg {
+  color: rgba(255, 255, 255, 0.75);
+}
+.agm-hero form[role="search"] .btn-accent {
+  min-height: 46px;
+  border-radius: 13px !important;
+  background: linear-gradient(180deg, #e87a2a, #e07020);
+  box-shadow: 0 6px 18px -6px rgba(224, 112, 32, 0.7);
+}
+
+/* ---- Quick chips ---- */
+.agm-hero ul a {
+  min-height: 38px;
+  padding-inline: 1rem;
+  border-color: rgba(255, 255, 255, 0.24);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+@media (max-width: 1023px) {
+  .agm-hero::after {
+    display: none;
+  }
+  .agm-hero .agm-greet {
+    font-size: 20px;
+  }
+}

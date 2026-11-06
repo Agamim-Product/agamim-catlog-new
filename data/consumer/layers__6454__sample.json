@@ -1,0 +1,126 @@
+{
+  "layer": "curated.hfc_subdistricts",
+  "synthetic": true,
+  "rows": [
+    {
+      "subdistrict_id": 11,
+      "name_he": "נפת קריית שמונה",
+      "district_id": 1,
+      "updated_at": "2026-11-03T10:16:49.466Z",
+      "geom_valid": true,
+      "geom": "MULTIPOLYGON(...)"
+    },
+    {
+      "subdistrict_id": 12,
+      "name_he": "נפת צפת",
+      "district_id": 1,
+      "updated_at": "2026-11-03T10:16:49.466Z",
+      "geom_valid": true,
+      "geom": "MULTIPOLYGON(...)"
+    },
+    {
+      "subdistrict_id": 13,
+      "name_he": "נפת נצרת",
+      "district_id": 1,
+      "updated_at": "2026-11-03T10:16:49.466Z",
+      "geom_valid": true,
+      "geom": "MULTIPOLYGON(...)"
+    },
+    {
+      "subdistrict_id": 21,
+      "name_he": "נפת חיפה",
+      "district_id": 2,
+      "updated_at": "2026-11-03T10:16:49.466Z",
+      "geom_valid": true,
+      "geom": "MULTIPOLYGON(...)"
+    },
+    {
+      "subdistrict_id": 22,
+      "name_he": "נפת חדרה",
+      "district_id": 2,
+      "updated_at": "2026-11-03T10:16:49.466Z",
+      "geom_valid": true,
+      "geom": "MULTIPOLYGON(...)"
+    },
+    {
+      "subdistrict_id": 23,
+      "name_he": "נפת עפולה",
+      "district_id": 2,
+      "updated_at": "2026-11-03T10:16:49.466Z",
+      "geom_valid": true,
+      "geom": "MULTIPOLYGON(...)"
+    },
+    {
+      "subdistrict_id": 31,
+      "name_he": "נפת תל אביב",
+      "district_id": 3,
+      "updated_at": "2026-11-03T10:16:49.466Z",
+      "geom_valid": true,
+      "geom": "MULTIPOLYGON(...)"
+    },
+    {
+      "subdistrict_id": 32,
+      "name_he": "נפת פתח תקווה",
+      "district_id": 3,
+      "updated_at": "2026-11-03T10:16:49.466Z",
+      "geom_valid": true,
+      "geom": "MULTIPOLYGON(...)"
+    },
+    {
+      "subdistrict_id": 33,
+      "name_he": "נפת נתניה",
+      "district_id": 3,
+      "updated_at": "2026-11-03T10:16:49.466Z",
+      "geom_valid": true,
+      "geom": "MULTIPOLYGON(...)"
+    },
+    {
+      "subdistrict_id": 41,
+      "name_he": "נפת ירושלים",
+      "district_id": 4,
+      "updated_at": "2026-11-03T10:16:49.466Z",
+      "geom_valid": true,
+      "geom": "MULTIPOLYGON(...)"
+    },
+    {
+      "subdistrict_id": 42,
+      "name_he": "נפת בית שמש",
+      "district_id": 4,
+      "updated_at": "2026-11-03T10:16:49.466Z",
+      "geom_valid": true,
+      "geom": "MULTIPOLYGON(...)"
+    },
+    {
+      "subdistrict_id": 43,
+      "name_he": "נפת מודיעין",
+      "district_id": 4,
+      "updated_at": "2026-11-03T10:16:49.466Z",
+      "geom_valid": true,
+      "geom": "MULTIPOLYGON(...)"
+    },
+    {
+      "subdistrict_id": 51,
+      "name_he": "נפת באר שבע",
+      "district_id": 5,
+      "updated_at": "2026-11-03T10:16:49.466Z",
+      "geom_valid": true,
+      "geom": "MULTIPOLYGON(...)"
+    },
+    {
+      "subdistrict_id": 52,
+      "name_he": "נפת ערבה",
+      "district_id": 5,
+      "updated_at": "2026-11-03T10:16:49.466Z",
+      "geom_valid": true,
+      "geom": "MULTIPOLYGON(...)"
+    },
+    {
+      "subdistrict_id": 53,
+      "name_he": "נפת אשקלון",
+      "district_id": 5,
+      "updated_at": "2026-11-03T10:16:49.466Z",
+      "geom_valid": true,
+      "geom": "MULTIPOLYGON(...)"
+    }
+  ]
+}

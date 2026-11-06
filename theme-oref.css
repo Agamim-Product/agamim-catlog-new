@@ -1,0 +1,406 @@
+/* Home Front Command house style. Loaded after the app stylesheet; it only restyles, it never changes behaviour.
+   Palette follows the public oref.org.il look, with a slightly deeper blue. */
+
+:root {
+  --deep: #12324f;
+  --gov: #003c80;
+  --sky: #166497;
+  --or: #fba030;
+  --or-ink: #14283c;
+  --strip: #eef2fb;
+  --page: #f6f8fc;
+  --ink: #14283c;
+  --mut: #4f6178;
+  --line: #d5deec;
+  --red: #d52330;
+  --grn: #1e7b46;
+  --r: 16px;
+  --band: 300px;
+}
+
+html,
+body {
+  font-family: "Rubik", "Heebo", system-ui, sans-serif;
+}
+body {
+  color: var(--ink);
+  background-color: var(--page);
+  background-image: linear-gradient(172deg, #003c80 0%, #166497 52%, #12324f 100%);
+  background-repeat: no-repeat;
+  background-size: 100% var(--band);
+}
+:focus-visible {
+  outline: 3px solid var(--or);
+  outline-offset: 2px;
+}
+
+/* the root wrapper on the login page has its own background */
+.bg-navy-50 {
+  background-color: transparent;
+}
+.bg-navy {
+  background-color: var(--deep);
+}
+.text-navy {
+  color: var(--ink);
+}
+
+/* ---------- shared controls ---------- */
+.btn {
+  border-radius: 999px;
+  padding: 0.45rem 1rem;
+  min-height: 38px;
+  font-weight: 500;
+}
+.btn-ghost {
+  border-color: var(--line);
+  color: var(--gov);
+  background: #fff;
+}
+.btn-primary {
+  background: var(--or);
+  color: var(--or-ink);
+  font-weight: 700;
+}
+.btn-accent {
+  background: var(--or);
+  color: var(--or-ink);
+  font-weight: 700;
+}
+.btn-primary:hover,
+.btn-accent:hover {
+  background: #ffb04f;
+}
+.card {
+  border-radius: var(--r);
+  border-color: var(--line);
+  box-shadow: none;
+}
+input[type="text"],
+input[type="search"],
+input[type="password"],
+input[type="email"],
+select {
+  border-radius: 999px;
+}
+
+/* ---------- alert banner (sits on the blue band) ---------- */
+section.no-print > div.flex.items-start {
+  background: #fdecee;
+  border: 1px solid #f0b4ba;
+  border-radius: var(--r);
+  color: var(--ink);
+}
+section.no-print > div.flex.items-start > svg {
+  color: #fff;
+  background: var(--red);
+  border-radius: 50%;
+  padding: 7px;
+  width: 34px;
+  height: 34px;
+  box-sizing: border-box;
+}
+
+/* ---------- header: a floating translucent bar on the blue band ---------- */
+header.no-print {
+  background: transparent;
+  border: 0;
+  padding: 4px 16px 0;
+}
+header.no-print > div.mx-auto {
+  max-width: 1248px;
+  margin-top: 4px;
+  padding: 10px 16px;
+  gap: 12px 16px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--r);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+header.no-print > div.mx-auto > a {
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.35rem;
+  text-decoration: none;
+}
+/* logos stay on the bare blue, no tile behind them */
+header.no-print img {
+  background: none;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
+}
+header.no-print form input {
+  border: 0;
+  background: #fff;
+  color: var(--ink);
+  height: 42px;
+  padding-block: 0;
+}
+header.no-print form svg {
+  color: #c46a00;
+}
+header.no-print .btn-ghost {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #fff;
+}
+header.no-print .btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.24);
+}
+header.no-print .bg-orange-dark {
+  background: var(--red);
+  color: #fff;
+}
+
+header.no-print nav {
+  max-width: 1248px;
+  margin: 12px auto 0;
+  padding: 0;
+  gap: 8px;
+}
+header.no-print nav a {
+  border: 0 !important;
+  border-radius: 22px;
+  padding: 8px 18px;
+  color: #fff;
+  font-weight: 500;
+  text-decoration: none;
+}
+header.no-print nav a:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+header.no-print nav a[aria-current="page"] {
+  background: #fff;
+  color: var(--gov);
+  font-weight: 700;
+}
+header.no-print nav a.ms-auto {
+  border: 1px dashed rgba(255, 255, 255, 0.75) !important;
+}
+
+/* ---------- home hero: the blue band itself ---------- */
+section.agm-hero {
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+  padding-block: 1.5rem 0 !important;
+}
+section.agm-hero::before,
+section.agm-hero::after,
+section.agm-hero > svg {
+  display: none !important;
+}
+section.agm-hero > img {
+  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.35));
+}
+section.agm-hero h1 {
+  color: var(--or);
+  font-size: 2.75rem;
+  font-weight: 700;
+}
+section.agm-hero p.text-base {
+  color: #e3eef9;
+}
+section.agm-hero form {
+  background: #fff;
+  border-radius: 30px;
+  box-shadow: 0 10px 28px rgba(0, 30, 70, 0.28);
+  padding: 8px 10px 8px 8px;
+  align-items: center;
+}
+section.agm-hero form input {
+  border: 0;
+  background: transparent;
+  height: 44px;
+  font-size: 1.05rem;
+}
+section.agm-hero form .btn-accent {
+  border-radius: 24px !important;
+  height: 44px;
+}
+section.agm-hero ul li > * {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  color: var(--gov);
+  font-weight: 500;
+}
+main > div.space-y-10 {
+  row-gap: 2rem;
+}
+
+/* ---------- dataset rows read as notice strips ---------- */
+ol.card.divide-y {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  overflow: visible;
+}
+ol.card.divide-y > li {
+  border: 0;
+  margin-bottom: 10px;
+}
+ol.card.divide-y > li > a {
+  background: var(--strip);
+  border-radius: 14px;
+  border-inline-start: 6px solid var(--grn);
+  padding-block: 0.9rem;
+}
+ol.card.divide-y > li > a:has(svg.lucide-lock) {
+  background: #fdf3f4;
+  border-inline-start-color: var(--red);
+}
+ol.card.divide-y > li > a:hover {
+  box-shadow: 0 0 0 2px var(--sky);
+}
+section h2.text-xl {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+/* ---------- catalog ---------- */
+main h1.text-xl {
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: var(--gov);
+}
+aside fieldset.card {
+  border-radius: var(--r);
+  background: #fff;
+}
+aside fieldset legend {
+  font-weight: 700;
+  color: var(--gov);
+}
+
+/* ---------- dataset page ---------- */
+header.card h1 {
+  color: var(--gov);
+}
+dl > div.rounded-lg {
+  background: var(--strip);
+  border: 0 !important;
+  border-radius: 14px;
+}
+dl > div.rounded-lg dd {
+  color: var(--gov);
+}
+div.border-b.border-slate-200:has(> div > button.border-b-2) {
+  background: var(--strip);
+  border: 0;
+  border-radius: 28px;
+  padding: 6px;
+  width: fit-content;
+  max-width: 100%;
+}
+button.whitespace-nowrap.border-b-2 {
+  border: 0 !important;
+  border-radius: 22px;
+  padding: 8px 22px;
+  color: var(--ink);
+  font-weight: 500;
+}
+button.whitespace-nowrap.border-b-2[aria-selected="true"],
+button.whitespace-nowrap.border-b-2[aria-current="true"],
+button.whitespace-nowrap.border-b-2.border-navy,
+button.whitespace-nowrap.border-b-2.border-orange {
+  background: var(--gov);
+  color: #fff;
+  font-weight: 700;
+}
+
+/* ---------- login ---------- */
+aside.bg-navy {
+  background: linear-gradient(172deg, #003c80 0%, #166497 52%, #12324f 100%);
+}
+aside.bg-navy img {
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.35));
+}
+aside.bg-navy .text-orange-100 {
+  color: var(--or);
+}
+aside.bg-navy li {
+  border-color: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.12);
+}
+main .overflow-hidden.rounded-lg.border {
+  border-radius: 20px;
+  border-color: var(--line);
+}
+main .border-dashed {
+  border-color: var(--sky);
+  background: var(--strip);
+  border-radius: var(--r);
+}
+body:has(aside.bg-navy) {
+  background-image: none;
+}
+
+/* ---------- footer strip ---------- */
+footer.bg-navy {
+  background: var(--deep);
+}
+
+/* ---------- refinements ---------- */
+main.flex-1 {
+  padding-top: 2.25rem;
+}
+section.agm-hero form {
+  background: #fff !important;
+  border: 0 !important;
+}
+section.agm-hero > img {
+  max-height: 210px;
+  width: auto;
+}
+aside.bg-navy {
+  background: linear-gradient(172deg, #003c80 0%, #166497 52%, #12324f 100%) !important;
+}
+section.agm-hero form input {
+  color: var(--ink) !important;
+}
+section.agm-hero form input::placeholder {
+  color: #5b6b7f !important;
+  opacity: 1;
+}
+section.agm-hero form svg {
+  color: #c46a00 !important;
+}
+section.agm-hero ul {
+  margin-top: 1.25rem;
+}
+
+/* ---------- welcome screen (fades out on click) ---------- */
+.splash {
+  background: linear-gradient(172deg, #003c80 0%, #166497 52%, #12324f 100%);
+}
+.splash-logos {
+  padding: 22px 36px;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+.splash-title {
+  font-size: 2.5rem;
+  line-height: 1.15;
+  color: #fff;
+}
+.splash-sub {
+  margin-top: 10px;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--or);
+}
+.splash-skip {
+  padding: 6px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 999px;
+  font-size: 0.85rem;
+  color: #fff;
+}

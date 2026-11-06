@@ -1,0 +1,172 @@
+html.ob-lock,
+html.ob-lock body {
+  overflow: hidden;
+}
+
+#agamim-onboarding {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  overflow-y: auto;
+  font-family: "Heebo", system-ui, sans-serif;
+  color: #1e293b;
+  background: radial-gradient(circle at 70% 25%, #17405f 0%, #0f2d48 45%, #0a2236 100%);
+}
+
+#agamim-onboarding .ob-card {
+  width: 100%;
+  max-width: 440px;
+  margin: auto;
+  padding: 28px 28px 24px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+}
+
+#agamim-onboarding .ob-logo {
+  display: block;
+  height: 56px;
+  width: auto;
+  margin: 0 auto 14px;
+  object-fit: contain;
+}
+
+#agamim-onboarding h1 {
+  margin: 0 0 4px;
+  text-align: center;
+  font-size: 26px;
+  font-weight: 700;
+  color: #0f2d48;
+}
+
+#agamim-onboarding .ob-sub {
+  margin: 0 0 20px;
+  text-align: center;
+  font-size: 14px;
+  color: #64748b;
+}
+
+#agamim-onboarding .ob-field {
+  margin-bottom: 14px;
+}
+
+#agamim-onboarding label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #334155;
+}
+
+#agamim-onboarding input,
+#agamim-onboarding select {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 42px;
+  padding: 8px 12px;
+  font: inherit;
+  font-size: 15px;
+  color: #1e293b;
+  background: #fff;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+}
+
+#agamim-onboarding input[readonly] {
+  color: #475569;
+  background: #f1f5f9;
+  cursor: not-allowed;
+}
+
+#agamim-onboarding input:focus-visible,
+#agamim-onboarding select:focus-visible,
+#agamim-onboarding .ob-submit:focus-visible {
+  outline: 2px solid #e07020;
+  outline-offset: 1px;
+}
+
+#agamim-onboarding .ob-invalid {
+  border-color: #b91c1c;
+}
+
+#agamim-onboarding .ob-error {
+  min-height: 16px;
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: #b91c1c;
+}
+
+#agamim-onboarding .ob-submit {
+  width: 100%;
+  min-height: 46px;
+  margin-top: 6px;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  background: #e07020;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+#agamim-onboarding .ob-submit:hover {
+  background: #c9611a;
+}
+
+/* ===== Home Front Command house style ===== */
+#agamim-onboarding {
+  font-family: "Rubik", "Heebo", system-ui, sans-serif;
+  color: #14283c;
+  background: linear-gradient(172deg, #003c80 0%, #166497 52%, #12324f 100%);
+}
+#agamim-onboarding .ob-card {
+  max-width: 460px;
+  padding: 28px 30px 26px;
+  border-radius: 24px;
+  box-shadow: 0 24px 60px rgba(0, 20, 50, 0.4);
+}
+#agamim-onboarding .ob-logos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 0 auto 16px;
+}
+#agamim-onboarding .ob-logos img {
+  display: block;
+  height: 60px;
+  width: auto;
+  object-fit: contain;
+}
+#agamim-onboarding h1 { color: #003c80; }
+#agamim-onboarding .ob-sub { color: #4f6178; }
+#agamim-onboarding label { color: #14283c; }
+#agamim-onboarding input,
+#agamim-onboarding select {
+  min-height: 46px;
+  padding: 8px 18px;
+  color: #14283c;
+  border: 1px solid #8ca0b8;
+  border-radius: 999px;
+}
+#agamim-onboarding input[readonly] { background: #eef2fb; color: #4f6178; }
+#agamim-onboarding input:focus-visible,
+#agamim-onboarding select:focus-visible,
+#agamim-onboarding .ob-submit:focus-visible {
+  outline: 3px solid #fba030;
+  outline-offset: 2px;
+}
+#agamim-onboarding .ob-invalid { border-color: #d52330; }
+#agamim-onboarding .ob-error { color: #d52330; }
+#agamim-onboarding .ob-submit {
+  min-height: 50px;
+  color: #14283c;
+  background: #fba030;
+  border-radius: 999px;
+}
+#agamim-onboarding .ob-submit:hover { background: #ffb04f; }

@@ -1,0 +1,184 @@
+{
+ "2": {
+  "layerId": 6453,
+  "files": [
+   "repositories__2.json",
+   "layers__6453.json",
+   "repositories__2__layers.json",
+   "layers__6453__sample.json",
+   "layers__6453__sample.csv",
+   "repositories__2__quality-profile.json",
+   "repositories__2__lineage__d1.json",
+   "repositories__2__lineage__d2.json",
+   "repositories__2__lineage__d3.json"
+  ],
+  "repoListItem": {
+   "id": 2,
+   "nameHe": "מחוזות פיקוד העורף",
+   "nameEn": "HFC districts",
+   "core": "public",
+   "valueLevel": "operational",
+   "phase": "POC",
+   "ownerHe": "רע״ן אב״כ",
+   "ownerEn": "AVAK branch head",
+   "classification": 3,
+   "sensitivity": 1,
+   "status": "approved",
+   "priority": true,
+   "contractPending": false,
+   "rice": null,
+   "accessState": "granted",
+   "restricted": false,
+   "blocked": null,
+   "group": {
+    "db": "db-oref-base",
+    "en": "Administrative geography (db-oref-base)",
+    "he": "מאגר הגיאוגרפיה המנהלית (db-oref-base)",
+    "health": {
+     "ok": true,
+     "layers": 3,
+     "lastLoad": "08:10",
+     "unlinked": 0,
+     "layersTotal": 3
+    },
+    "pipeline": [
+     {
+      "at": "08:10",
+      "en": "db-oref-base",
+      "he": "db-oref-base",
+      "key": "source"
+     },
+     {
+      "at": "08:10",
+      "en": "Ingestion",
+      "he": "קליטה",
+      "key": "ingest"
+     },
+     {
+      "at": "08:14",
+      "en": "Portal",
+      "he": "פורטל",
+      "key": "portal"
+     }
+    ]
+   },
+   "dim": {
+    "cadence": "onChange",
+    "changedAt": "2026-03-12",
+    "checkedAt": "08:10",
+    "publishedAt": "2026-03-13"
+   },
+   "docs": {
+    "documented": 11,
+    "total": 11
+   },
+   "purposeHe": "גבולות הרשויות המקומיות כשכבת GIS: שם רשות, סוג, שיוך למחוז ולנפה ושטח",
+   "purposeEn": "HFC district boundaries as a GIS layer: name, type, district and sub-district link, and area",
+   "custodianHe": "צוות מפעל המידע",
+   "stewardHe": "ראש צוות Data Engineering",
+   "quality": {
+    "repoId": 1,
+    "completeness": 98,
+    "timeliness": 100,
+    "consistency": 100,
+    "accuracy": 99,
+    "uniqueness": 100,
+    "verdict": "verified",
+    "freshnessMin": 180,
+    "trend": [
+     95,
+     97,
+     99,
+     96,
+     98,
+     95,
+     97,
+     99,
+     96,
+     98,
+     95,
+     97
+    ]
+   },
+   "slo": [
+    {
+     "id": 8227,
+     "repoId": 1,
+     "metric": "freshness",
+     "unit": "min",
+     "target": 1440,
+     "measured": 180,
+     "higherIsBetter": false,
+     "history": [
+      168,
+      180,
+      192,
+      168,
+      180,
+      192,
+      168,
+      180,
+      192,
+      168,
+      180,
+      192
+     ],
+     "synthetic": true
+    },
+    {
+     "id": 8228,
+     "repoId": 1,
+     "metric": "availability",
+     "unit": "%",
+     "target": 99,
+     "measured": 99.6,
+     "higherIsBetter": true,
+     "history": [
+      99.55,
+      99.6,
+      99.65,
+      99.55,
+      99.6,
+      99.65,
+      99.55,
+      99.6,
+      99.65,
+      99.55,
+      99.6,
+      99.65
+     ],
+     "synthetic": true
+    }
+   ],
+   "sloStatus": "ok",
+   "sloBreaches": []
+  },
+  "layerListItem": {
+   "liveSource": null,
+   "id": 6453,
+   "repoId": 2,
+   "repoNameHe": "מחוזות פיקוד העורף",
+   "repoNameEn": "HFC districts",
+   "dbName": "db-oref-base",
+   "sqlName": "curated.hfc_districts",
+   "titleHe": "מחוזות פיקוד העורף",
+   "titleEn": "HFC districts",
+   "tier": "curated",
+   "kind": "table",
+   "geometry": "MultiPolygon",
+   "ownerHe": "רע״ן אב״כ",
+   "cadence": "daily",
+   "hasPii": false,
+   "classification": 3,
+   "accessState": "granted",
+   "restricted": false,
+   "blocked": null,
+   "grouped": true,
+   "rowCount": 6,
+   "lastUpdated": "2026-11-03T10:16:49.518Z",
+   "columnCount": 8,
+   "ageMin": 180,
+   "freshness": "fresh"
+  }
+ }
+}

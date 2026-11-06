@@ -1,0 +1,1302 @@
+/* Round 2 refinements for the Home Front Command theme. Loaded after theme-oref.css. */
+
+/* 1. alert: one slim line until opened */
+.agm-alert {
+  align-items: center !important;
+  padding: 0.35rem 0.75rem !important;
+  gap: 0.6rem !important;
+}
+.agm-alert > svg {
+  width: 26px !important;
+  height: 26px !important;
+  padding: 5px !important;
+}
+.agm-alert > .min-w-0 {
+  cursor: pointer;
+}
+.agm-alert > .min-w-0 > div:first-child {
+  flex-wrap: nowrap;
+}
+.agm-alert > .min-w-0 > div:first-child h4 {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.agm-alert:not(.agm-alert-open) > .min-w-0 > p,
+.agm-alert:not(.agm-alert-open) > .min-w-0 > div:last-child {
+  display: none;
+}
+.agm-alert .btn {
+  min-height: 32px;
+  padding: 0.15rem 0.6rem;
+}
+
+/* 2. (the compact search button is part of the bar on every page, home included) */
+
+/* 3. hero: frosted facts panel instead of a second big logo */
+section.agm-hero > img:not(.agm-hero-logo) {
+  display: none !important;
+}
+.agm-hero-logo {
+  position: absolute;
+  inset-inline-end: 4rem;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 78%;
+  max-height: 260px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.4));
+  pointer-events: none;
+}
+@media (max-width: 1023px) {
+  .agm-hero-logo {
+    display: none;
+  }
+}
+
+/* 4-5. dataset rows: dataset tag, version chip, status in words */
+ol.card.divide-y > li > a > span:first-child {
+  width: auto;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--gov) !important;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 2px 10px;
+  white-space: nowrap;
+}
+ol.card.divide-y > li > a > span:first-child bdi {
+  font-size: 1em;
+}
+ol.card.divide-y > li > a > span:first-child bdi::before {
+  content: "מאגר ";
+  font-family: "Rubik", "Heebo", sans-serif;
+  font-weight: 500;
+}
+ol.card.divide-y > li > a > span.text-end {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 4px 12px;
+  text-align: center;
+  color: var(--ink);
+}
+ol.card.divide-y > li > a > span.text-end > span:first-child {
+  color: var(--gov);
+}
+.agm-status {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 999px;
+  padding: 3px 12px 3px 8px;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border: 2px solid currentColor;
+  background: #fff;
+  cursor: pointer;
+}
+.agm-status:disabled {
+  cursor: default;
+}
+.agm-status::before {
+  content: "";
+  width: 30px;
+  height: 16px;
+  border-radius: 999px;
+  background-color: currentColor;
+  background-repeat: no-repeat;
+}
+.agm-status--open {
+  color: var(--grn);
+}
+.agm-status--open::before {
+  background-image: radial-gradient(circle at calc(100% - 8px) 50%, #fff 5px, transparent 6px);
+}
+.agm-status--blocked {
+  color: #a8141f;
+}
+.agm-status--blocked::before {
+  background-image: radial-gradient(circle at 8px 50%, #fff 5px, transparent 6px);
+}
+.agm-status:not(:disabled):hover {
+  box-shadow: 0 0 0 3px rgba(22, 100, 151, 0.25);
+}
+.agm-admin-switch {
+  border-color: var(--or) !important;
+  color: var(--or-ink) !important;
+  background: #fff3e0 !important;
+  font-weight: 700;
+}
+
+/* 6. section header: orange panel with an icon badge, list below it */
+main section > div.mb-3:has(> h2) {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0 !important;
+  padding: 0.7rem 1.25rem;
+  background: var(--or);
+  border-radius: var(--r) var(--r) 0 0;
+}
+main section > div.mb-3:has(> h2) h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0;
+  color: var(--or-ink);
+}
+main section > div.mb-3:has(> h2) h2::before {
+  content: "";
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  flex: none;
+  background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%2314283c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cellipse cx='12' cy='5' rx='9' ry='3'/%3E%3Cpath d='M3 5v14a9 3 0 0 0 18 0V5'/%3E%3Cpath d='M3 12a9 3 0 0 0 18 0'/%3E%3C/svg%3E") center / 18px no-repeat;
+}
+main section > div.mb-3:has(> h2) .btn-ghost {
+  background: transparent;
+  border-color: rgba(20, 40, 60, 0.45);
+  color: var(--or-ink);
+}
+main section > div.mb-3:has(> h2) + ol.card.divide-y {
+  display: flex;
+  flex-direction: column;
+  padding: 14px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-top: 0;
+  border-radius: 0 0 var(--r) var(--r);
+}
+
+/* 7. bigger logos in the bar */
+header.no-print img {
+  height: 44px !important;
+  width: auto !important;
+  max-width: none;
+}
+
+/* 8. "add dataset" reads as a button */
+header.no-print nav a.ms-auto {
+  background: var(--or);
+  color: var(--or-ink);
+  border: 0 !important;
+  font-weight: 700;
+}
+header.no-print nav a.ms-auto:hover {
+  background: #ffb04f;
+}
+
+/* 9. air between the search and the chips */
+section.agm-hero ul {
+  margin-top: 1.75rem;
+}
+
+section.agm-hero {
+  padding-top: 0.25rem !important;
+}
+
+/* every page: the bar holds logos, navigation and tools in one row, so there is no empty stretch */
+header.no-print {
+  display: flex;
+  align-items: center;
+  gap: 8px 16px;
+  width: calc(100% - 32px);
+  max-width: 1248px;
+  margin: 4px auto 0;
+  padding: 10px 16px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--r);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+header.no-print > div.mx-auto {
+  display: contents;
+}
+header.no-print > div.mx-auto > a {
+  order: 1;
+}
+header.no-print > nav {
+  order: 2;
+  flex: 1;
+  margin: 0;
+  justify-content: center;
+}
+header.no-print > div.mx-auto > div.ms-auto {
+  order: 4;
+  margin-inline-start: 0;
+}
+@media (max-width: 1279px) {
+  header.no-print {
+    flex-wrap: wrap;
+  }
+  header.no-print > nav {
+    order: 4;
+    flex-basis: 100%;
+    justify-content: flex-start;
+  }
+}
+
+/* consumers browse only: no admin entry points */
+html.agm-consumer header.no-print nav a.ms-auto {
+  display: none !important;
+}
+.agm-status:disabled {
+  cursor: default;
+}
+.agm-status:disabled {
+  pointer-events: none;
+}
+.agm-status:disabled::before {
+  display: none;
+}
+
+/* ---------- home hero text block: one quiet stack, right-aligned ---------- */
+section.agm-hero .agm-greet {
+  display: flex;
+  align-items: center;
+  margin: 0 0 10px;
+  padding: 0;
+  font-size: 1.2rem;
+  font-weight: 500;
+  line-height: 1.3;
+  color: #fff;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+section.agm-hero .agm-greet::before {
+  width: 28px;
+  height: 3px;
+  margin-inline-end: 12px;
+  border-radius: 3px;
+  background: var(--or);
+}
+section.agm-hero h1 {
+  margin: 0 0 12px !important;
+  font-size: clamp(2.4rem, 4vw, 3.25rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  text-shadow: none;
+}
+section.agm-hero p.text-base {
+  margin: 0 0 28px !important;
+  font-size: 1rem;
+  color: #cfe1f1;
+}
+/* ---------- larger logo row on the login screen (and the profile form) ---------- */
+aside.bg-navy img.h-14 {
+  height: 6rem !important;
+  width: auto;
+  max-width: none;
+}
+aside.bg-navy .h-14 ~ span.h-9,
+aside.bg-navy span.h-9.w-px {
+  height: 4rem;
+}
+aside.bg-navy img.h-9 {
+  height: 3.5rem !important;
+}
+aside.bg-navy div.gap-4 {
+  gap: 1.75rem;
+}
+#agamim-onboarding .ob-logo {
+  height: 76px;
+}
+
+/* the global search is a compact button in the bar; it opens when you click or tab into it */
+header.no-print form {
+  order: 3;
+  position: relative;
+  flex: none;
+  width: 44px;
+  min-width: 0;
+  margin: 0;
+  transition: width 0.2s ease;
+}
+header.no-print form:focus-within {
+  width: 280px;
+}
+header.no-print form input {
+  width: 100%;
+  min-width: 0;
+  color: transparent;
+  cursor: pointer;
+}
+header.no-print form input::placeholder {
+  color: transparent;
+}
+header.no-print form input:focus {
+  color: var(--ink);
+  cursor: text;
+}
+header.no-print form input:focus::placeholder {
+  color: #5b6b7f;
+}
+@media (prefers-reduced-motion: reduce) {
+  header.no-print form {
+    transition: none;
+  }
+}
+@media (max-width: 1279px) {
+  header.no-print form:focus-within {
+    width: 220px;
+  }
+}
+header.no-print form input {
+  border-radius: 999px !important;
+}
+
+/* ---------- bar: no white search block, navigation spread across the row ---------- */
+header.no-print form input {
+  height: 40px !important;
+  background: rgba(255, 255, 255, 0.12) !important;
+  border: 1px solid rgba(255, 255, 255, 0.5) !important;
+}
+header.no-print form svg {
+  color: #fff !important;
+}
+header.no-print form:hover input {
+  background: rgba(255, 255, 255, 0.24) !important;
+}
+header.no-print form:focus-within input {
+  background: #fff !important;
+  border-color: #fff !important;
+}
+header.no-print form:focus-within svg {
+  color: #c46a00 !important;
+}
+header.no-print > nav {
+  justify-content: space-evenly;
+}
+header.no-print > nav a.ms-auto {
+  margin-inline-start: 0;
+}
+header.no-print a:focus-visible,
+header.no-print button:focus-visible,
+header.no-print input:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+@media (max-width: 1279px) {
+  header.no-print > nav {
+    justify-content: flex-start;
+  }
+}
+
+/* ---------- search opens as an overlay: it never takes room from the navigation ---------- */
+header.no-print form,
+header.no-print form:focus-within {
+  position: relative;
+  width: 40px !important;
+  height: 40px;
+  flex: none;
+}
+header.no-print form input {
+  position: absolute;
+  top: 0;
+  inset-inline-start: 0;
+  z-index: 5;
+  width: 40px !important;
+  padding-inline: 38px 0 !important;
+  transition: width 0.2s ease;
+}
+header.no-print form svg {
+  z-index: 6;
+}
+header.no-print form:focus-within input {
+  width: 300px !important;
+  padding-inline: 40px 16px !important;
+  box-shadow: 0 8px 24px rgba(0, 30, 70, 0.3);
+}
+header.no-print > nav {
+  overflow: visible !important;
+  flex-wrap: nowrap;
+  min-width: 0;
+}
+@media (max-width: 1279px) {
+  header.no-print form:focus-within input {
+    width: 240px !important;
+  }
+}
+
+/* search: the open box drops below the bar, so nothing in the bar is covered or moved */
+header.no-print form:focus-within::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  border-radius: 50%;
+  border: 1px solid #fff;
+  background: rgba(255, 255, 255, 0.24);
+  pointer-events: none;
+}
+header.no-print form:focus-within svg {
+  color: #fff !important;
+}
+header.no-print form:focus-within input {
+  top: calc(100% + 14px);
+  inset-inline-start: 0;
+  z-index: 30;
+  width: 320px !important;
+  height: 46px !important;
+  padding-inline: 20px !important;
+  border-color: #fff !important;
+  box-shadow: 0 10px 28px rgba(0, 30, 70, 0.35);
+}
+@media (max-width: 1279px) {
+  header.no-print form:focus-within input {
+    width: 260px !important;
+  }
+}
+
+/* nav pills: larger, close together, centred in the bar (no wide gaps between buttons) */
+header.no-print > nav {
+  justify-content: center !important;
+  gap: 12px !important;
+}
+header.no-print > nav a {
+  padding: 10px 28px !important;
+  font-size: 1.05rem;
+}
+@media (max-width: 1279px) {
+  header.no-print > nav {
+    justify-content: flex-start !important;
+  }
+}
+header.no-print > nav a:not([aria-current="page"]):not(.ms-auto) {
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+}
+header.no-print > nav a:not([aria-current="page"]):not(.ms-auto):hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+/* ---------- compact bar: it is exactly as wide as its content, so it has no empty stretch ---------- */
+header.no-print {
+  width: fit-content !important;
+  max-width: calc(100% - 32px) !important;
+  margin-inline: auto !important;
+}
+header.no-print > nav {
+  flex: none !important;
+  justify-content: flex-start !important;
+  gap: 8px !important;
+  margin: 0 !important;
+  padding-inline: 16px !important;
+  border-inline: 1px solid rgba(255, 255, 255, 0.25);
+}
+header.no-print > nav a {
+  padding: 9px 20px !important;
+  font-size: 1rem;
+}
+@media (max-width: 1279px) {
+  header.no-print {
+    width: calc(100% - 32px) !important;
+  }
+  header.no-print > nav {
+    flex: 1 1 100% !important;
+    border-inline: 0;
+    padding-inline: 0 !important;
+  }
+}
+
+/* ---------- add-dataset side panel chrome ---------- */
+#agm-drawer .agm-d-back {
+  background: rgba(18, 50, 79, 0.55) !important;
+}
+#agm-drawer .agm-d-panel {
+  border-start-start-radius: 20px;
+  border-end-start-radius: 20px;
+  overflow: hidden;
+}
+#agm-drawer header {
+  background: var(--or);
+  border-bottom: 0 !important;
+  padding: 14px 20px !important;
+}
+#agm-drawer h2 {
+  color: var(--or-ink) !important;
+  font-family: inherit;
+}
+#agm-drawer .agm-d-x {
+  border-radius: 999px !important;
+  border-color: rgba(20, 40, 60, 0.45) !important;
+  background: transparent !important;
+  color: var(--or-ink) !important;
+}
+#agm-drawer .agm-d-x:hover {
+  background: rgba(255, 255, 255, 0.45) !important;
+}
+#agm-drawer iframe {
+  background: #f6f8fc !important;
+}
+
+/* ---------- QA fixes ---------- */
+
+/* search box opens below the whole bar, however many rows the bar has (offsets are measured in theme-oref.js) */
+header.no-print form:focus-within input {
+  position: absolute !important;
+  top: var(--agm-st, 54px) !important;
+  left: var(--agm-sl, 0px) !important;
+  right: auto !important;
+  inset-inline-start: auto !important;
+  transform: none;
+  width: min(320px, calc(100vw - 32px)) !important;
+}
+
+/* welcome screen: logos sit directly on the blue (no panel) and always fit the screen */
+.splash-logos {
+  padding: 0 !important;
+  background: none !important;
+  border: 0 !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  max-width: calc(100vw - 32px);
+}
+@media (max-width: 560px) {
+  .splash-logos {
+    gap: 12px;
+  }
+  .splash-logo-side {
+    height: 78px;
+    width: 78px;
+  }
+  .splash-logo {
+    height: 112px;
+  }
+  .splash-title {
+    font-size: 1.9rem;
+  }
+}
+
+/* phones: roomier dataset rows and a tidier bar */
+@media (max-width: 640px) {
+  ol.card.divide-y > li > a {
+    flex-wrap: wrap;
+    gap: 8px 10px;
+    padding: 12px;
+  }
+  ol.card.divide-y > li > a > span:first-child {
+    order: 1;
+  }
+  ol.card.divide-y > li > a > .agm-status {
+    order: 2;
+    margin-inline-start: auto;
+  }
+  ol.card.divide-y > li > a > span.min-w-0 {
+    order: 3;
+    flex: 1 1 100%;
+  }
+  ol.card.divide-y > li > a > span.rtl-flip {
+    display: none;
+  }
+  header.no-print > div.mx-auto > a {
+    font-size: 1.05rem;
+    min-width: 0;
+  }
+  header.no-print > nav a {
+    padding: 8px 14px !important;
+    font-size: 0.92rem;
+  }
+  header.no-print > nav {
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
+}
+
+/* =====================================================================
+   Taste pass: one motion system (hover step, press, lift) and equal edges
+   ===================================================================== */
+:root {
+  --m-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* equal edges: the hero text and logo sit on the same left and right lines as the panels below */
+section.agm-hero {
+  padding-inline: 0 !important;
+}
+.agm-hero-logo {
+  inset-inline-end: 0 !important;
+}
+
+/* buttons and pills: step up 1px on hover, sink 1px and scale on press */
+.btn,
+.ad-btn,
+.agm-status:not(:disabled),
+header.no-print > nav a,
+header.no-print form input {
+  transition: transform 200ms var(--m-ease), background-color 200ms var(--m-ease), border-color 200ms var(--m-ease),
+    box-shadow 200ms var(--m-ease);
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover,
+  .ad-btn:hover,
+  .agm-status:not(:disabled):hover,
+  header.no-print > nav a:hover {
+    transform: translateY(-1px);
+    transition-duration: 140ms;
+  }
+}
+.btn:active,
+.ad-btn:active,
+.agm-status:not(:disabled):active,
+header.no-print > nav a:active {
+  transform: translateY(1px) scale(0.985);
+  transition-duration: 90ms;
+}
+
+/* linked cards: lift 2px, border a step darker, soft shadow only while hovered */
+ol.card.divide-y > li > a,
+.xl\:grid-cols-3 > * {
+  transition: transform 180ms var(--m-ease), box-shadow 180ms var(--m-ease), border-color 200ms var(--m-ease);
+}
+@media (hover: hover) and (pointer: fine) {
+  ol.card.divide-y > li > a:hover,
+  .xl\:grid-cols-3 > *:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 40, 90, 0.1);
+  }
+  .xl\:grid-cols-3 > *:hover {
+    border-color: #8ca0b8;
+  }
+}
+ol.card.divide-y > li > a:hover {
+  box-shadow: 0 8px 24px rgba(0, 40, 90, 0.1), 0 0 0 2px var(--sky);
+}
+
+/* focus: a 2px ring in the accent */
+:focus-visible {
+  outline-width: 2px;
+}
+
+/* nothing moves for visitors who ask for less motion */
+@media (prefers-reduced-motion: reduce) {
+  .btn,
+  .ad-btn,
+  .agm-status,
+  header.no-print > nav a,
+  header.no-print form input,
+  ol.card.divide-y > li > a,
+  .xl\:grid-cols-3 > * {
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+/* ---------- web-interface-guidelines review fixes ---------- */
+a,
+button,
+input,
+select,
+summary,
+[role="button"],
+[role="switch"] {
+  touch-action: manipulation;
+}
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+bdi.id,
+.agm-status {
+  font-variant-numeric: tabular-nums;
+}
+
+/* =====================================================================
+   Admin actions: add button, actions menu, edit dialog
+   ===================================================================== */
+
+/* the add button now lives next to the datasets heading, not in the navigation */
+header.no-print > nav a.ms-auto {
+  display: none !important;
+}
+html.agm-consumer .agm-tools,
+html.agm-consumer .agm-kebab,
+html.agm-consumer .agm-admin-edit {
+  display: none !important;
+}
+
+.agm-tools {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-inline-start: auto;
+}
+main section > div.mb-3:has(> h2) {
+  justify-content: flex-start !important;
+  gap: 12px;
+}
+main section > div.mb-3:has(> h2) > .btn-ghost {
+  margin-inline-start: auto;
+}
+main section > div.mb-3:has(> h2) > .agm-tools {
+  margin-inline-start: 0;
+}
+main div.mb-4.flex.flex-wrap.items-end.justify-between {
+  justify-content: flex-start !important;
+  gap: 12px;
+}
+
+.agm-add-btn,
+.agm-restore {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 18px;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 200ms var(--m-ease), background-color 200ms var(--m-ease), box-shadow 200ms var(--m-ease);
+}
+.agm-add-btn {
+  color: var(--or-ink);
+  background: var(--or);
+  border: 0;
+}
+.agm-add-btn svg {
+  width: 20px;
+  height: 20px;
+  padding: 3px;
+  border-radius: 50%;
+  background: var(--or-ink);
+  color: #fff;
+  box-sizing: border-box;
+}
+.agm-add-btn:hover {
+  background: #ffb04f;
+}
+.agm-add-btn--on-orange {
+  background: #fff;
+}
+.agm-add-btn--on-orange:hover {
+  background: #fff3e0;
+}
+.agm-add-btn--on-orange svg {
+  background: var(--or);
+  color: var(--or-ink);
+}
+.agm-restore {
+  color: var(--gov);
+  background: #fff;
+  border: 1px solid var(--line);
+}
+.agm-restore--on-orange {
+  background: transparent;
+  color: var(--or-ink);
+  border-color: rgba(20, 40, 60, 0.45);
+}
+@media (hover: hover) and (pointer: fine) {
+  .agm-add-btn:hover,
+  .agm-restore:hover {
+    transform: translateY(-1px);
+  }
+}
+.agm-add-btn:active,
+.agm-restore:active {
+  transform: translateY(1px) scale(0.985);
+}
+
+/* the actions menu */
+.agm-kebab {
+  order: 2;
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  color: var(--gov);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 200ms var(--m-ease), border-color 200ms var(--m-ease);
+}
+.agm-kebab:hover,
+.agm-kebab[aria-expanded="true"] {
+  background: var(--strip);
+  border-color: #8ca0b8;
+}
+.agm-menu {
+  position: absolute;
+  z-index: 60;
+  min-width: 190px;
+  padding: 6px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(0, 30, 70, 0.2);
+}
+.agm-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 12px;
+  font: inherit;
+  font-size: 0.95rem;
+  color: var(--ink);
+  text-align: start;
+  background: transparent;
+  border: 0;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.agm-menu-item:hover,
+.agm-menu-item:focus-visible {
+  background: var(--strip);
+}
+.agm-menu-item--danger {
+  color: #a8141f;
+}
+.agm-menu-item--danger:hover,
+.agm-menu-item--danger:focus-visible {
+  background: #fdecee;
+}
+.agm-admin-edit {
+  gap: 8px;
+}
+
+/* the edit dialog */
+html.agm-modal-lock,
+html.agm-modal-lock body {
+  overflow: hidden;
+}
+.agm-edit {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.agm-edit-back {
+  position: absolute;
+  inset: 0;
+  background: rgba(18, 50, 79, 0.55);
+}
+.agm-edit-panel {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  max-height: calc(100vh - 32px);
+  overflow: auto;
+  overscroll-behavior: contain;
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 24px 60px rgba(0, 20, 50, 0.4);
+}
+.agm-edit-panel header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  background: var(--or);
+}
+.agm-edit-panel h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-size: 1.15rem;
+  color: var(--or-ink);
+}
+.agm-edit-x {
+  min-width: 40px;
+  min-height: 36px;
+  font: inherit;
+  color: var(--or-ink);
+  background: transparent;
+  border: 1px solid rgba(20, 40, 60, 0.45);
+  border-radius: 999px;
+  cursor: pointer;
+}
+.agm-edit-x:hover {
+  background: rgba(255, 255, 255, 0.45);
+}
+.agm-edit-form {
+  padding: 20px;
+}
+.agm-edit-field {
+  margin-bottom: 8px;
+}
+.agm-edit-field label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+.agm-edit-field label i {
+  color: var(--red);
+  font-style: normal;
+  margin-inline-start: 3px;
+}
+.agm-edit-field input,
+.agm-edit-field textarea {
+  width: 100%;
+  min-height: 46px;
+  padding: 8px 18px;
+  font: inherit;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid #8ca0b8;
+  border-radius: 999px;
+}
+.agm-edit-field textarea {
+  min-height: 84px;
+  padding: 10px 16px;
+  border-radius: 16px;
+  resize: vertical;
+}
+.agm-edit-field .agm-bad {
+  border-color: var(--red);
+}
+.agm-edit-err {
+  min-height: 18px;
+  margin: 4px 0 0;
+  font-size: 0.8rem;
+  color: var(--red);
+}
+.agm-edit-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+.agm-btn {
+  min-height: 46px;
+  padding: 0 24px;
+  font: inherit;
+  font-weight: 700;
+  color: var(--gov);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  cursor: pointer;
+}
+.agm-btn--primary {
+  color: var(--or-ink);
+  background: var(--or);
+  border-color: var(--or);
+}
+.agm-btn--primary:hover {
+  background: #ffb04f;
+}
+@media (prefers-reduced-motion: reduce) {
+  .agm-add-btn,
+  .agm-restore,
+  .agm-kebab {
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+/* dataset rows: a small icon instead of the dataset number (the number stays for screen readers and sorting) */
+ol.card.divide-y > li > a > span:first-child {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  font-size: 0;
+  border-radius: 50%;
+}
+ol.card.divide-y > li > a > span:first-child::before {
+  content: "";
+  width: 18px;
+  height: 18px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23003c80' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cellipse cx='12' cy='5' rx='9' ry='3'/%3E%3Cpath d='M3 5v14a9 3 0 0 0 18 0V5'/%3E%3Cpath d='M3 12a9 3 0 0 0 18 0'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+ol.card.divide-y > li > a > span:first-child bdi {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+ol.card.divide-y > li > a > span:first-child bdi::before {
+  content: none;
+}
+
+/* home list sort control */
+.agm-sort {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-inline-start: auto;
+  font-size: 0.9rem;
+  color: var(--or-ink);
+}
+.agm-sort select {
+  min-height: 40px;
+  padding: 0 14px;
+  font: inherit;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid rgba(20, 40, 60, 0.3);
+  border-radius: 999px;
+}
+main section > div.mb-3:has(> h2) > .agm-sort ~ .btn-ghost {
+  margin-inline-start: 0;
+}
+
+/* ---------- hierarchy: data lake -> datasets (data layers) ---------- */
+/* a dataset is a layer: stacked-layers icon (the database icon now means a lake) */
+ol.card.divide-y > li > a > span:first-child::before {
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23003c80' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 2 2 7l10 5 10-5-10-5Z'/%3E%3Cpath d='m2 17 10 5 10-5'/%3E%3Cpath d='m2 12 10 5 10-5'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+/* the lake heading row (a data lake = "מאגר מידע") */
+ol.card.divide-y > li.agm-lake {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 6px 0 10px;
+  padding: 4px 2px;
+  border: 0;
+}
+ol.card.divide-y > li.agm-lake:not(:first-of-type) {
+  margin-top: 18px;
+}
+.agm-lake-icon {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--gov) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cellipse cx='12' cy='5' rx='9' ry='3'/%3E%3Cpath d='M3 5v14a9 3 0 0 0 18 0V5'/%3E%3Cpath d='M3 12a9 3 0 0 0 18 0'/%3E%3C/svg%3E") center / 20px no-repeat;
+}
+.agm-lake-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+}
+.agm-lake-text strong {
+  font-size: 1.05rem;
+  color: var(--ink);
+  text-align: start;
+}
+.agm-lake-text span {
+  font-size: 0.85rem;
+  color: var(--mut);
+}
+/* the datasets of a lake sit inside it */
+ol.card.divide-y > li.agm-in-lake {
+  margin-inline-start: 28px;
+}
+@media (max-width: 640px) {
+  ol.card.divide-y > li.agm-in-lake {
+    margin-inline-start: 12px;
+  }
+}
+
+/* ---------- the lake heading is a dropdown button ---------- */
+ol.card.divide-y > li.agm-lake {
+  display: block;
+  padding: 0;
+}
+.agm-lake-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 8px 10px;
+  font: inherit;
+  text-align: start;
+  color: inherit;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: background-color 200ms var(--m-ease), border-color 200ms var(--m-ease);
+}
+.agm-lake-btn:hover {
+  background: var(--strip);
+  border-color: var(--line);
+}
+.agm-lake-chev {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  margin-inline-start: auto;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23003c80' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") center / 16px no-repeat;
+  transition: transform 200ms var(--m-ease);
+}
+.agm-lake--closed .agm-lake-chev {
+  transform: rotate(90deg);
+}
+ol.card.divide-y > li.agm-collapsed {
+  display: none !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .agm-lake-btn,
+  .agm-lake-chev {
+    transition: none !important;
+  }
+}
+
+/* catalog cards: the actions menu sits in the card header, next to the access lights */
+.agm-card-kebab {
+  order: 0;
+  margin-inline-start: 6px;
+  align-self: flex-start;
+}
+article.card > div:first-child {
+  align-items: center;
+}
+
+/* ---------- the alert sits above the bar, always one line; its full text opens as an overlay ---------- */
+section.no-print {
+  position: relative;
+  z-index: 40;
+}
+.agm-alert {
+  position: relative;
+}
+.agm-alert > .min-w-0 > p,
+.agm-alert > .min-w-0 > div:last-child {
+  display: none !important;
+}
+.agm-alert-pop {
+  position: absolute;
+  top: calc(100% + 6px);
+  inset-inline: 0;
+  z-index: 45;
+  padding: 12px 18px;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid #f0b4ba;
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(0, 30, 70, 0.22);
+}
+.agm-alert-pop p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+.agm-alert-pop small {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.8rem;
+  color: var(--mut);
+}
+
+/* the bar sits a little lower: 16px of air above it, whether or not an alert is shown */
+header.no-print {
+  padding-top: 16px !important;
+}
+div.flex.min-h-full.flex-col > div:has(> section.no-print) {
+  padding-bottom: 0 !important;
+}
+
+/* ---------- search suggestions ---------- */
+.agm-suggest {
+  position: fixed;
+  z-index: 200;
+  max-height: min(60vh, 420px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 6px;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: 0 16px 40px rgba(0, 30, 70, 0.25);
+}
+.agm-suggest[hidden] {
+  display: none;
+}
+.agm-suggest-opt {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 10px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+.agm-suggest-opt[aria-selected="true"] {
+  background: var(--strip);
+}
+.agm-suggest-icon {
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23003c80' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 2 2 7l10 5 10-5-10-5Z'/%3E%3Cpath d='m2 17 10 5 10-5'/%3E%3Cpath d='m2 12 10 5 10-5'/%3E%3C/svg%3E") center / 18px no-repeat;
+  border: 1px solid var(--line);
+}
+.agm-suggest-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.35;
+}
+.agm-suggest-text strong {
+  font-size: 0.97rem;
+  font-weight: 500;
+}
+.agm-suggest-text span {
+  overflow: hidden;
+  font-size: 0.8rem;
+  color: var(--mut);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.agm-suggest mark {
+  padding: 0 1px;
+  color: inherit;
+  font-weight: 700;
+  background: #ffe2b8;
+  border-radius: 3px;
+}
+.agm-suggest-state {
+  flex: none;
+  padding: 2px 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: #fff;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+}
+.agm-suggest-state--open {
+  color: var(--grn);
+}
+.agm-suggest-state--blocked {
+  color: #a8141f;
+}
+.agm-suggest-none {
+  padding: 12px 12px 8px;
+  font-size: 0.9rem;
+  color: var(--mut);
+}
+.agm-suggest-all {
+  margin-top: 4px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--gov);
+  border-top: 1px solid var(--line);
+  border-radius: 0 0 12px 12px;
+}
+
+/* every navigation pill has the same weight, so the bar is exactly as wide on every page */
+header.no-print > nav a,
+header.no-print > nav a[aria-current="page"] {
+  font-weight: 700 !important;
+}
