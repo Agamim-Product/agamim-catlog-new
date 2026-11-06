@@ -32,7 +32,7 @@ async function openCatalog(page) {
 
 /** Opens the "add dataset" side panel from the nav and returns the form's frame locator. */
 async function openPanel(page) {
-  await page.getByRole("navigation").getByRole("link", { name: /הוספת מאגר/ }).click();
+  await page.locator("a.agm-add-btn:visible").first().click();
   await page.locator("#agm-drawer").waitFor();
   return page.frameLocator("#agm-drawer iframe");
 }

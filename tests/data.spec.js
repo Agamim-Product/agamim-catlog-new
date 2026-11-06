@@ -54,7 +54,7 @@ test.describe("simulated DE staging database", () => {
   test("has tables with the technical fields the form relies on", () => {
     expect(db.tables.length).toBeGreaterThanOrEqual(3);
     for (const t of db.tables) {
-      for (const key of ["sqlName", "dbName", "titleHe", "rowCount", "createdAt", "lastUpdated", "cadence", "version", "loadTime"]) {
+      for (const key of ["sqlName", "dbName", "titleHe", "rowCount", "createdAt", "lastUpdated", "cadence", "loadTime"]) {
         expect(t[key], `${t.sqlName}.${key}`).toBeDefined();
       }
       expect(["daily", "onChange"]).toContain(t.cadence);

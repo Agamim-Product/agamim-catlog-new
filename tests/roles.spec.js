@@ -11,7 +11,8 @@ test.describe("data consumer (no admin rights)", () => {
     await page.goto("/");
     await page.locator(".splash").click({ timeout: 3000 }).catch(() => {});
     await expect(page.getByRole("heading", { name: "מה תרצו לדעת?" })).toBeVisible();
-    await expect(page.getByRole("navigation").getByRole("link", { name: /הוספת מאגר/ })).toBeHidden();
+    await expect(page.locator("a.agm-add-btn")).toHaveCount(0);
+    await expect(page.locator(".agm-kebab")).toHaveCount(0);
 
     // dataset status is shown, but it is not a switch
     const chip = page.locator('a[href="#/repo/2"] .agm-status');
@@ -37,7 +38,8 @@ test.describe("portal admin", () => {
     await signIn(page);
     await page.goto("/");
     await page.locator(".splash").click({ timeout: 3000 }).catch(() => {});
-    await expect(page.getByRole("navigation").getByRole("link", { name: /הוספת מאגר/ })).toBeVisible();
+    await expect(page.locator("a.agm-add-btn")).toBeVisible();
+    await expect(page.locator(".agm-kebab")).toHaveCount(3);
     await expect(page.locator('[role="switch"]')).toHaveCount(3);
   });
 });

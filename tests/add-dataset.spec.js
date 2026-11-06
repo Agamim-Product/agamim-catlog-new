@@ -35,7 +35,7 @@ test.describe("add dataset (side panel)", () => {
     const form = await openPanel(page);
 
     await form.locator("#f-table").selectOption("curated.public_shelters");
-    await expect(form.locator(".ad-fact")).toHaveCount(11);
+    await expect(form.locator(".ad-fact")).toHaveCount(10);
     await expect(form.locator(".ad-fact", { hasText: "מספר שורות" })).toContainText("9,640");
     await expect(form.locator(".ad-fact", { hasText: "תאריך יצירה" })).toContainText("21/10/2026");
 
@@ -102,7 +102,7 @@ test.describe("add dataset (side panel)", () => {
 
     // other tabs render real content, not errors
     await page.getByRole("tab", { name: /ליניאז/ }).click();
-    await expect(page.getByText("db-shelters").first()).toBeVisible();
+    await expect(page.getByText("db-oref-base").first()).toBeVisible();
     await page.getByRole("tab", { name: "חוזה" }).click();
     await expect(page.getByText(/Public shelters|מקלטים ציבוריים/).first()).toBeVisible();
     await expect(page.getByText(/Not available/)).toHaveCount(0);

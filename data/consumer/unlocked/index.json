@@ -32,8 +32,8 @@
    "blocked": null,
    "group": {
     "db": "db-oref-base",
-    "en": "GIS layers (db-oref-base)",
-    "he": "שכבות GIS (db-oref-base)",
+    "en": "Administrative geography (db-oref-base)",
+    "he": "מאגר הגיאוגרפיה המנהלית (db-oref-base)",
     "health": {
      "ok": true,
      "layers": 3,
@@ -64,7 +64,6 @@
    },
    "dim": {
     "cadence": "onChange",
-    "version": "v14",
     "changedAt": "2026-03-12",
     "checkedAt": "08:10",
     "publishedAt": "2026-03-13"

@@ -22,12 +22,13 @@ test.describe("home page", () => {
 
   test("shows the hero, search and the published datasets", async ({ page }) => {
     await expect(page.getByRole("heading", { name: "מה תרצו לדעת?" })).toBeVisible();
-    await expect(page.getByRole("textbox", { name: "חיפוש", exact: true })).toBeVisible();
+    await expect(page.getByRole("combobox", { name: "חיפוש", exact: true })).toBeVisible();
     await expect(page.getByText("רשויות מקומיות").first()).toBeVisible();
   });
 
-  test("has the add-dataset entry in the navigation", async ({ page }) => {
-    await expect(page.getByRole("navigation").getByRole("link", { name: /הוספת מאגר/ })).toBeVisible();
+  test("has the add-dataset button next to the datasets heading, not in the navigation", async ({ page }) => {
+    await expect(page.locator("a.agm-add-btn")).toBeVisible();
+    await expect(page.getByRole("navigation").getByRole("link", { name: /הוספת מאגר/ })).toBeHidden();
   });
 
   test("an admin can switch a dataset between open and blocked", async ({ page }) => {

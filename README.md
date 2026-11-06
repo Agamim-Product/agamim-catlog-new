@@ -10,6 +10,14 @@ npm ci
 npm run serve        # http://127.0.0.1:4173
 ```
 
+## Phase 1 scope
+
+- Welcome screen, login with two-step verification, first-visit profile form
+- Home: data lake (מאגר הגיאוגרפיה המנהלית, db-oref-base) with its datasets, sorting by name / status / last update, search suggestions, collapsible lake, dismissible alerts
+- Catalog (cards, filters, sort), dataset page (overview, tables and data types, lineage, contract), search results
+- Admin: add dataset (side panel), edit, open / close access, delete and restore; consumers browse only
+- Out of scope for this phase: version control of datasets (no version is shown or stored)
+
 ## Demo accounts and roles
 
 Sign in on the login screen (demo password `demo1234`, any 6-digit code for the second step):

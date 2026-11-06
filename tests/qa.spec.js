@@ -102,7 +102,7 @@ test("the navigation bar has the same parts on every page", async ({ page }) => 
     const nav = page.getByRole("navigation").first();
     await expect(page.locator("header.no-print").getByRole("link", { name: "בית" })).toBeVisible();
     await expect(page.locator("header.no-print").getByRole("link", { name: "קטלוג" })).toBeVisible();
-    await expect(page.locator("header.no-print").getByRole("link", { name: /הוספת מאגר/ })).toBeVisible();
+    await expect(page.locator("header.no-print").getByRole("link", { name: /הוספת מאגר/ })).toBeHidden();
     await expect(page.locator("header.no-print").getByRole("button", { name: "יציאה" })).toBeVisible();
     await expect(page.locator("header.no-print").getByRole("button", { name: "עזרה" })).toBeVisible();
     await expect(nav).toBeVisible();
@@ -147,7 +147,7 @@ test.describe("phone", () => {
   test("the add-dataset panel fits a phone", async ({ page }) => {
     await signIn(page);
     await ready(page, "/#/");
-    await page.locator("header.no-print").getByRole("link", { name: /הוספת מאגר/ }).click();
+    await page.locator("a.agm-add-btn:visible").first().click();
     const panel = page.locator("#agm-drawer .agm-d-panel");
     await expect(panel).toBeVisible();
     const w = await panel.evaluate((e) => Math.round(e.getBoundingClientRect().width));
@@ -176,22 +176,27 @@ test("the bar has its search button on home too, and the catalog has no table/ca
   await signIn(page);
   await ready(page, "/#/");
   await expect(page.locator("header.no-print form")).toBeVisible();
-  await expect(page.getByRole("textbox", { name: "חיפוש", exact: true })).toBeVisible();
+  await expect(page.getByRole("combobox", { name: "חיפוש", exact: true })).toBeVisible();
   await ready(page, "/#/catalog");
   await expect(page.getByRole("button", { name: "טבלה", exact: true })).toHaveCount(0);
   await expect(page.getByRole("button", { name: "כרטיסים", exact: true })).toHaveCount(0);
 });
 
 // ---------- alert strip ----------
-test("the alert is one line until opened", async ({ page }) => {
+test("the alert is one line until opened; the full text is an overlay", async ({ page }) => {
   await signIn(page);
   await ready(page, "/#/");
-  const body = page.locator("section.no-print [role=alert] p").first();
-  await expect(body).toBeHidden();
-  await page.locator("section.no-print [role=alert] [role=button]").click();
-  await expect(body).toBeVisible();
-  await page.locator("section.no-print [role=alert] [role=button]").press("Enter");
-  await expect(body).toBeHidden();
+  const toggle = page.locator("section.no-print [role=alert] [role=button], section.no-print [role=status] [role=button]");
+  const pop = page.locator(".agm-alert-pop");
+  await expect(pop).toHaveCount(0);
+  const before = await page.locator("header.no-print").evaluate((e) => e.getBoundingClientRect().top);
+  await toggle.click();
+  await expect(pop).toBeVisible();
+  await expect(pop).toContainText("הפורטל לא יהיה זמין");
+  // opening it never moves the bar
+  expect(await page.locator("header.no-print").evaluate((e) => e.getBoundingClientRect().top)).toBe(before);
+  await toggle.press("Enter");
+  await expect(pop).toHaveCount(0);
 });
 
 // ---------- admin switch ----------
@@ -266,7 +271,7 @@ test("keyboard: the bar is reachable and focus is visible", async ({ page }) => 
 test("Escape closes the add-dataset panel", async ({ page }) => {
   await signIn(page);
   await ready(page, "/#/");
-  await page.locator("header.no-print").getByRole("link", { name: /הוספת מאגר/ }).click();
+  await page.locator("a.agm-add-btn:visible").first().click();
   await expect(page.locator("#agm-drawer")).toBeVisible();
   await page.keyboard.press("Escape");
   await expect(page.locator("#agm-drawer")).toHaveCount(0);
@@ -327,5 +332,86 @@ test.describe("QA regressions", () => {
     await expect(page.getByText("db-oref-base").first()).toBeVisible();
     await page.locator("button[role=tab]", { hasText: "ליניאז" }).click();
     await expect(page.getByText("מסלול הנתונים של מאגר מוגבל")).toHaveCount(0);
+  });
+});
+
+// ---------- the columns table must list every column with its data type ----------
+test.describe("columns and data types", () => {
+  const CASES = [
+    [1, 11, "muni_id"],
+    [3, 6, "subdistrict_id"],
+  ];
+  for (const [id, count, firstCol] of CASES) {
+    test(`dataset ${id} lists its ${count} columns, each with a data type`, async ({ page }) => {
+      await signIn(page);
+      await ready(page, `/#/repo/${id}`);
+      await page.locator("button[role=tab]", { hasText: "טבלאות ונתונים" }).click();
+      const rows = page.locator("section[aria-labelledby=cols-title] tbody tr");
+      await expect(rows).toHaveCount(count);
+      await expect(rows.first()).toContainText(firstCol);
+      const types = await rows.evaluateAll((trs) => trs.map((tr) => (tr.children[1] ? tr.children[1].textContent.trim() : "")));
+      for (const t of types) expect(t, "every column shows a type").not.toBe("");
+      await expect(page.locator("section[aria-labelledby=cols-title] thead th")).toHaveText(["שם עמודה", "סוג", "מה זה"]);
+    });
+  }
+
+  test("an opened dataset 2 lists its columns too", async ({ page }) => {
+    await signIn(page);
+    await page.addInitScript(() => {
+      if (!localStorage.getItem("agamim-access-overrides-v1")) localStorage.setItem("agamim-access-overrides-v1", JSON.stringify({ 2: { blocked: false } }));
+    });
+    await ready(page, "/#/repo/2");
+    await page.locator("button[role=tab]", { hasText: "טבלאות ונתונים" }).click();
+    await expect(page.locator("section[aria-labelledby=cols-title] tbody tr")).toHaveCount(8);
+  });
+});
+
+// ---------- the navigation bar does not move, whatever the notification says ----------
+test.describe("navigation bar stays put", () => {
+  const top = (page) => page.locator("header.no-print").evaluate((e) => Math.round(e.getBoundingClientRect().top));
+  const left = (page) => page.locator("header.no-print").evaluate((e) => Math.round(e.getBoundingClientRect().left));
+
+  test("the alert is above the bar, and the bar stays put with each alert and an opened alert", async ({ page }) => {
+    await signIn(page);
+    await ready(page, "/#/catalog");
+    const box = page.locator("section.no-print > div[role=alert], section.no-print > div[role=status]");
+    const t0 = await top(page);
+    const l0 = await left(page);
+    const [hb, ab] = await Promise.all([
+      page.locator("header.no-print").evaluate((e) => e.getBoundingClientRect().top),
+      box.evaluate((e) => e.getBoundingClientRect().bottom),
+    ]);
+    expect(ab, "the alert is above the bar").toBeLessThanOrEqual(hb);
+    const h0 = await box.evaluate((e) => Math.round(e.getBoundingClientRect().height));
+
+    // the second (longer, non-critical) alert is also exactly one line, and nothing shifts
+    await page.getByRole("button", { name: "התראה הבאה" }).click();
+    await expect(box.locator("h4")).toContainText("תיעוד חדש");
+    expect(await box.evaluate((e) => Math.round(e.getBoundingClientRect().height))).toBe(h0);
+    expect(await top(page)).toBe(t0);
+    expect(await left(page)).toBe(l0);
+
+    // opening the alert overlays the page; the bar does not move
+    await box.locator("[role=button]").click();
+    await expect(page.locator(".agm-alert-pop")).toBeVisible();
+    expect(await top(page)).toBe(t0);
+    expect(await left(page)).toBe(l0);
+  });
+
+  test("same geometry on home, catalog and a dataset page", async ({ page }) => {
+    await signIn(page);
+    const seen = [];
+    for (const p of ["/#/", "/#/catalog", "/#/repo/1"]) {
+      await ready(page, p);
+      seen.push(await page.locator("header.no-print").evaluate((e) => { const r = e.getBoundingClientRect(); return [Math.round(r.top), Math.round(r.left), Math.round(r.width), Math.round(r.height)].join(","); }));
+    }
+    // the bar is the same place and size on every page (a pixel of text-width difference between the active pills is fine)
+    const nums = seen.map((s) => s.split(",").map(Number));
+    for (const n of nums) {
+      expect(Math.abs(n[0] - nums[0][0]), seen.join(" | ")).toBe(0);
+      expect(Math.abs(n[1] - nums[0][1]), seen.join(" | ")).toBeLessThanOrEqual(2);
+      expect(Math.abs(n[2] - nums[0][2]), seen.join(" | ")).toBeLessThanOrEqual(2);
+      expect(Math.abs(n[3] - nums[0][3]), seen.join(" | ")).toBe(0);
+    }
   });
 });

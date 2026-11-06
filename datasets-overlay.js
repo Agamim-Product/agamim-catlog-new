@@ -20,10 +20,38 @@
   var KEY = "agamim-local-datasets-v1";
   var DATA_RE = /data\/consumer\/([^?#\/]+\.(?:json|csv))(?:[?#].*)?$/;
 
+  var LAKE = "db-oref-base";
+  var LAKE_HE = "מאגר הגיאוגרפיה המנהלית (db-oref-base)";
+  var LAKE_EN = "Administrative geography (db-oref-base)";
+  function moveIntoLake(g) {
+    if (g && typeof g === "object" && g.db !== LAKE) { g.db = LAKE; g.he = LAKE_HE; g.en = LAKE_EN; return true; }
+    return false;
+  }
+  // every dataset belongs to the lake db-oref-base; datasets saved earlier under another db are moved
+  function migrate(list) {
+    var changed = false;
+    list.forEach(function (d) {
+      if (!d) return;
+      if (d.list && d.list.repo && moveIntoLake(d.list.repo.group)) changed = true;
+      if (d.list && d.list.layer && d.list.layer.dbName !== LAKE) { d.list.layer.dbName = LAKE; changed = true; }
+      Object.keys(d.files || {}).forEach(function (n) {
+        var f = d.files[n];
+        if (f && typeof f === "object") {
+          if (f.group && moveIntoLake(f.group)) changed = true;
+          if (f.dbName && f.dbName !== LAKE && /^layers__/.test(n)) { f.dbName = LAKE; changed = true; }
+          if (Array.isArray(f)) f.forEach(function (x) { if (x && x.dbName && x.dbName !== LAKE) { x.dbName = LAKE; changed = true; } });
+        }
+      });
+    });
+    return changed;
+  }
+
   function load() {
     try {
       var a = JSON.parse(localStorage.getItem(KEY) || "[]");
-      return Array.isArray(a) ? a : [];
+      if (!Array.isArray(a)) return [];
+      if (migrate(a)) { try { localStorage.setItem(KEY, JSON.stringify(a)); } catch (e) {} }
+      return a;
     } catch (e) {
       return [];
     }
@@ -227,6 +255,103 @@
   }
 
   /*
+   * Admin edits and deletions (browser-local, like access overrides).
+   * localStorage["agamim-edits-v1"]   = { "<repoId>": { nameHe, purposeHe, ownerHe, ownerPhone, stewardHe, custodianHe } }
+   * localStorage["agamim-deleted-v1"] = [ <repoId>, ... ]   (hidden in this browser; can be restored)
+   */
+  var EDITS_KEY = "agamim-edits-v1";
+  var DELETED_KEY = "agamim-deleted-v1";
+  var EDIT_FIELDS = ["nameHe", "purposeHe", "ownerHe", "ownerPhone", "stewardHe", "custodianHe"];
+
+  function loadJsonKey(key, fallback) {
+    try {
+      var v = JSON.parse(localStorage.getItem(key) || "null");
+      return v === null || typeof v !== typeof fallback ? fallback : v;
+    } catch (e) {
+      return fallback;
+    }
+  }
+  function loadEdits() {
+    var o = loadJsonKey(EDITS_KEY, {});
+    return o && !Array.isArray(o) ? o : {};
+  }
+  function loadDeleted() {
+    var a = loadJsonKey(DELETED_KEY, []);
+    return Array.isArray(a) ? a.map(String) : [];
+  }
+
+  window.__agamimEdits = {
+    key: EDITS_KEY,
+    load: loadEdits,
+    set: function (repoId, fields) {
+      var o = loadEdits();
+      var e = {};
+      EDIT_FIELDS.forEach(function (f) { if (typeof fields[f] === "string") e[f] = fields[f].trim(); });
+      o[String(repoId)] = e;
+      localStorage.setItem(EDITS_KEY, JSON.stringify(o));
+    }
+  };
+  window.__agamimDeleted = {
+    key: DELETED_KEY,
+    load: loadDeleted,
+    add: function (repoId) {
+      var a = loadDeleted();
+      if (a.indexOf(String(repoId)) < 0) a.push(String(repoId));
+      localStorage.setItem(DELETED_KEY, JSON.stringify(a));
+    },
+    restoreAll: function () {
+      localStorage.removeItem(DELETED_KEY);
+    }
+  };
+
+  function editRepo(obj, e) {
+    if (!obj || typeof obj !== "object" || !e) return;
+    EDIT_FIELDS.forEach(function (f) { if (typeof e[f] === "string") obj[f] = e[f]; });
+    if (typeof e.nameHe === "string") obj.nameEn = e.nameHe;
+    if (typeof e.purposeHe === "string") obj.purposeEn = e.purposeHe;
+    if (typeof e.ownerHe === "string") obj.ownerEn = e.ownerHe;
+  }
+  function editLayer(l, e) {
+    if (!l || typeof l !== "object" || !e) return;
+    if (typeof e.nameHe === "string") { l.repoNameHe = e.nameHe; l.titleHe = e.nameHe; l.repoNameEn = e.nameHe; l.titleEn = e.nameHe; }
+    if (typeof e.ownerHe === "string") l.ownerHe = e.ownerHe;
+    if (typeof e.stewardHe === "string") l.stewardHe = e.stewardHe;
+    if (typeof e.purposeHe === "string") { l.descHe = e.purposeHe; l.descEn = e.purposeHe; }
+  }
+
+  // returns the changed data, or null when the file belongs to a deleted dataset
+  function applyContent(name, data, ed, del) {
+    if (!data || typeof data !== "object") return data;
+    var m;
+    if (name === "repositories.json" && Array.isArray(data.items)) {
+      data.items = data.items.filter(function (r) { return del.indexOf(String(r.id)) < 0; });
+      data.items.forEach(function (r) { editRepo(r, ed[String(r.id)]); });
+      data.total = data.items.length;
+      if (data.facets && data.facets.access) {
+        var o = 0, l = 0;
+        data.items.forEach(function (r) { if (r.restricted) l++; else o++; });
+        data.facets.access = { open: o, locked: l };
+      }
+    } else if (name === "layers.json" && Array.isArray(data.items)) {
+      data.items = data.items.filter(function (x) { return del.indexOf(String(x.repoId)) < 0; });
+      data.items.forEach(function (x) { editLayer(x, ed[String(x.repoId)]); });
+      data.total = data.items.length;
+    } else if ((m = /^repositories__(\d+)\.json$/.exec(name))) {
+      if (del.indexOf(m[1]) >= 0) return null;
+      editRepo(data, ed[m[1]]);
+    } else if ((m = /^repositories__(\d+)__layers\.json$/.exec(name))) {
+      if (del.indexOf(m[1]) >= 0) return null;
+      (Array.isArray(data) ? data : data.items || []).forEach(function (x) { editLayer(x, ed[m[1]]); });
+    } else if ((m = /^repositories__(\d+)__(?:lineage__d\d|quality-profile)\.json$/.exec(name))) {
+      if (del.indexOf(m[1]) >= 0) return null;
+    } else if (/^layers__\d+\.json$/.test(name) && data.repoId !== undefined) {
+      if (del.indexOf(String(data.repoId)) >= 0) return null;
+      editLayer(data, ed[String(data.repoId)]);
+    }
+    return data;
+  }
+
+  /*
    * A dataset that is blocked in the published files only has a "locked" stub (no columns, samples, ...).
    * When an admin opens it, the complete synthetic files from data/consumer/unlocked/ are used instead.
    */
@@ -255,21 +380,29 @@
     var url = "";
     var m = null;
     var ov = {};
+    var ed = {};
+    var del = [];
     try {
       url = typeof input === "string" ? input : (input && input.url) || String(input || "");
       m = DATA_RE.exec(url);
       ov = loadAccess();
+      ed = loadEdits();
+      del = loadDeleted();
     } catch (e) {}
     var opened = Object.keys(ov).filter(function (k) { return ov[k] && ov[k].blocked === false; });
-    if (!m || !Object.keys(ov).length) return localFetch.apply(self, args);
+    if (!m || !(Object.keys(ov).length || Object.keys(ed).length || del.length)) return localFetch.apply(self, args);
     var name = m[1];
 
-    var viaOverrides = function (res) {
+    var gone = function () { return new Response("", { status: 404 }); };
+    var transform = function (res, withAccess) {
       if (!res.ok || !/\.json$/.test(name)) return res;
       return res.clone().json().then(function (data) {
-        return reply(applyAccess(name, data, ov), "application/json");
+        if (withAccess) data = applyAccess(name, data, ov);
+        data = applyContent(name, data, ed, del);
+        return data === null ? gone() : reply(data, "application/json");
       }).catch(function () { return res; });
     };
+    var viaOverrides = function (res) { return transform(res, true); };
 
     if (!opened.length || /^unlocked\//.test(name)) return localFetch.apply(self, args).then(viaOverrides);
 
@@ -277,7 +410,7 @@
       var isList = name === "repositories.json" || name === "layers.json";
       var repo = isList ? null : unlockedRepoFor(name, index);
       if (repo && ov[repo] && ov[repo].blocked === false && index[repo].files.indexOf(name) >= 0) {
-        return realFetch.call(self, url.replace(/data\/consumer\/[^?#]*/, "data/consumer/unlocked/" + name));
+        return realFetch.call(self, url.replace(/data\/consumer\/[^?#]*/, "data/consumer/unlocked/" + name)).then(function (res) { return transform(res, false); });
       }
       return localFetch.apply(self, args).then(function (res) {
         res = viaOverrides(res);

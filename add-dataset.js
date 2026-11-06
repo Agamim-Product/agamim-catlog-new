@@ -182,11 +182,12 @@
     var changedAt = String(t.lastUpdated).slice(0, 10);
 
     // ---- group / dim
+    var LAKES = { "db-oref-base": ["מאגר הגיאוגרפיה המנהלית", "Administrative geography"] };
     var sameDb = siblings.filter(function (s) { return s.group && s.group.db === t.dbName; });
     var group = {
       db: t.dbName,
-      en: "GIS layers (" + t.dbName + ")",
-      he: "שכבות GIS (" + t.dbName + ")",
+      en: (LAKES[t.dbName] ? LAKES[t.dbName][1] : "GIS layers") + " (" + t.dbName + ")",
+      he: (LAKES[t.dbName] ? LAKES[t.dbName][0] : "שכבות GIS") + " (" + t.dbName + ")",
       health: { ok: true, layers: sameDb.length + 1, lastLoad: t.loadTime, unlinked: 0, layersTotal: sameDb.length + 1 },
       pipeline: [
         { at: t.loadTime, en: t.dbName, he: t.dbName, key: "source" },
@@ -194,7 +195,7 @@
         { at: addMinutes(t.loadTime, 4), en: "Portal", he: "פורטל", key: "portal" }
       ]
     };
-    var dim = { cadence: t.cadence, version: t.version, changedAt: changedAt, checkedAt: t.loadTime, publishedAt: today_ };
+    var dim = { cadence: t.cadence, changedAt: changedAt, checkedAt: t.loadTime, publishedAt: today_ };
 
     // ---- quality + SLO (DE metrics; trend/history series are illustrative)
     var qv = t.quality, vals = [qv.completeness, qv.timeliness, qv.consistency, qv.accuracy, qv.uniqueness];
@@ -230,7 +231,7 @@
     );
     var sources = lines(m.sources).concat([
       t.dbName + ": " + m.nameHe + " (" + t.sqlName + "), גישת קריאה בלבד",
-      "תדירות טעינה: " + (CADENCE[t.cadence] || t.cadence) + " · גרסה נוכחית: " + t.version
+      "תדירות טעינה: " + (CADENCE[t.cadence] || t.cadence)
     ]);
     var owner = slug(m.ownerEn) || "data-owner";
     var yaml = [
@@ -243,7 +244,7 @@
       "pipeline: " + t.dbName + " > ingestion_db > portal_api",
       "source: { system: " + t.dbName + ", layer: " + lastSeg(t.sqlName) + ", format: PostGIS }",
       "refresh: " + t.cadence,
-      "retention: latest_version",
+      "retention: latest",
       "columns:"
     ].concat(t.columns.map(function (c) { return "  - { name: " + c.name + ", type: " + c.type + ", nullable: " + (c.nullable ? "true" : "false") + " }"; })).concat([
       "validation:",
@@ -450,7 +451,7 @@
         fact("טבלה", t.sqlName, true), fact("מסד נתונים", t.dbName, true),
         fact("מספר שורות", fmtNum(t.rowCount)),
         fact("מספר עמודות", String(t.columns.length)), fact("תאריך יצירה", fmtDate(t.createdAt)),
-        fact("עדכון אחרון", fmtDate(t.lastUpdated)), fact("גרסה", t.version),
+        fact("עדכון אחרון", fmtDate(t.lastUpdated)),
         fact("תדירות טעינה", CADENCE[t.cadence] || t.cadence), fact("שעת טעינה אחרונה", t.loadTime),
         fact("נטען על ידי", t.loadedBy), fact("תיעוד עמודות", t.docs.documented + " מתוך " + t.docs.total)
       ]),
@@ -471,7 +472,7 @@
 
     var basics = el("section", { class: "ad-card" }, [
       el("h2", { text: "2 · פרטי המאגר" }),
-      el("p", { class: "ad-sub", text: "טבלה נבחרת: " + t.sqlName + " · " + fmtNum(t.rowCount) + " שורות · גרסה " + t.version }),
+      el("p", { class: "ad-sub", text: "טבלה נבחרת: " + t.sqlName + " · " + fmtNum(t.rowCount) + " שורות" }),
       el("div", { class: "ad-grid" }, [
         field("שם המאגר", "nameHe", { required: true, full: true }),
         field("מטרה / תיאור", "purposeHe", { type: "textarea", required: true, full: true })
@@ -523,7 +524,7 @@
       row("אחראי / מתפעל", rp.stewardHe + " · " + rp.custodianHe),
       row("טבלה", t.sqlName, true),
       row("שורות ועמודות", fmtNum(t.rowCount) + " שורות · " + t.columns.length + " עמודות"),
-      row("גרסה ותדירות", t.version + " · " + (CADENCE[t.cadence] || t.cadence)),
+      row("תדירות", CADENCE[t.cadence] || t.cadence),
       row("תמיכה", "שגרה ≤ " + m.routineDays + " ימי עבודה · חירום ≤ " + m.emergencyHours + " שעות")
     );
     var saveBtn = el("button", { class: "ad-btn pri", type: "button", text: "שמירה בדפדפן והצגה בקטלוג", onclick: function () { doSave(pkg); } });
@@ -533,7 +534,7 @@
       el("div", { class: "ad-prev" }, [
         el("div", { class: "num", text: pad2(S.ids.repoId) }),
         el("div", {}, [el("div", { class: "nm", text: rp.nameHe }), el("div", { class: "pp", text: rp.purposeHe })]),
-        el("div", { class: "vv", text: "גרסה " + t.version + " · עודכן " + fmtDate(t.lastUpdated) })
+        el("div", { class: "vv", text: "עודכן " + fmtDate(t.lastUpdated) })
       ]),
       el("dl", { class: "ad-sum", style: "margin-top:18px" }, sum),
       S.saveError ? el("p", { class: "err", style: "color:#b91c1c;margin-top:12px", text: S.saveError }) : null
