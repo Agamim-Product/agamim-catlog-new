@@ -405,12 +405,12 @@ test.describe("navigation bar stays put", () => {
       await ready(page, p);
       seen.push(await page.locator("header.no-print").evaluate((e) => { const r = e.getBoundingClientRect(); return [Math.round(r.top), Math.round(r.left), Math.round(r.width), Math.round(r.height)].join(","); }));
     }
-    // the bar is the same place and size on every page (a pixel of text-width difference between the active pills is fine)
+    // the bar is the same place and size on every page (a pixel of sub-pixel text rounding is fine)
     const nums = seen.map((s) => s.split(",").map(Number));
     for (const n of nums) {
       expect(Math.abs(n[0] - nums[0][0]), seen.join(" | ")).toBe(0);
-      expect(Math.abs(n[1] - nums[0][1]), seen.join(" | ")).toBeLessThanOrEqual(2);
-      expect(Math.abs(n[2] - nums[0][2]), seen.join(" | ")).toBeLessThanOrEqual(2);
+      expect(Math.abs(n[1] - nums[0][1]), seen.join(" | ")).toBeLessThanOrEqual(1);
+      expect(Math.abs(n[2] - nums[0][2]), seen.join(" | ")).toBeLessThanOrEqual(1);
       expect(Math.abs(n[3] - nums[0][3]), seen.join(" | ")).toBe(0);
     }
   });

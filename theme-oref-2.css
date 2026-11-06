@@ -1294,3 +1294,9 @@ div.flex.min-h-full.flex-col > div:has(> section.no-print) {
   border-top: 1px solid var(--line);
   border-radius: 0 0 12px 12px;
 }
+
+/* every navigation pill has the same weight, so the bar is exactly as wide on every page */
+header.no-print > nav a,
+header.no-print > nav a[aria-current="page"] {
+  font-weight: 700 !important;
+}
