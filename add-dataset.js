@@ -16,6 +16,8 @@
     try { return localStorage.getItem("qa-seeded") === "1"; } catch (e) { return false; }
   }
   if (!signedIn()) { location.replace("./"); return; }
+  // consumers cannot register datasets
+  try { var __a = JSON.parse(sessionStorage.getItem("auth") || "null"); if (__a && __a.role === "consumer") { location.replace("./"); return; } } catch (e) {}
 
   var STAGING_URL = "./data/staging/db-tables.json";
   var DRAFT_KEY = "agamim-dataset-draft-v1";

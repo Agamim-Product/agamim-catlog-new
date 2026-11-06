@@ -10,6 +10,25 @@ npm ci
 npm run serve        # http://127.0.0.1:4173
 ```
 
+## Demo accounts and roles
+
+Sign in on the login screen (demo password `demo1234`, any 6-digit code for the second step):
+
+| Account | Role | Can do |
+| --- | --- | --- |
+| `user@oref.example` ("מנהל פורטל") | portal admin | browse, add datasets, switch a dataset between open and blocked |
+| `consumer@oref.example` ("צרכן נתונים") | consumer | browse only |
+
+These controls are hidden in the browser, which is a demo convenience and not security. A real deployment needs a backend.
+Admin choices (open / blocked, locally added datasets) are kept in the browser's `localStorage`.
+The originally blocked dataset (2) has its complete synthetic files in `data/consumer/unlocked/`; they are used only when an admin opens it.
+
+## Look and feel
+
+The Home Front Command style lives in `theme-oref.css`, `theme-oref-2.css` and `theme-oref.js` (loaded after the app),
+plus `add-dataset.css` and `onboarding.css`. The compiled app in `assets/` is only patched for the consumer account,
+the removal of the table view and a few labels.
+
 ## Tests (Playwright)
 
 ```

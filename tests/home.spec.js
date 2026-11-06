@@ -29,4 +29,27 @@ test.describe("home page", () => {
   test("has the add-dataset entry in the navigation", async ({ page }) => {
     await expect(page.getByRole("navigation").getByRole("link", { name: /הוספת מאגר/ })).toBeVisible();
   });
+
+  test("an admin can switch a dataset between open and blocked", async ({ page }) => {
+    page.on("dialog", (d) => d.accept());
+    await page.locator(".splash").click({ timeout: 3000 }).catch(() => {});
+    const chip = (id) => page.locator('a[href="#/repo' + "/" + id + '"] .agm-status');
+
+    await expect(chip(2)).toHaveText("חסום");
+    await expect(chip(1)).toHaveText("פתוח");
+
+    // open the blocked one
+    await chip(2).click();
+    await expect(chip(2)).toHaveText("פתוח");
+    await expect(page.locator(".agm-status--blocked")).toHaveCount(0);
+
+    // the choice is remembered, and the dataset page agrees
+    await page.reload();
+    await expect(chip(2)).toHaveText("פתוח");
+
+    // block another one
+    await chip(1).click();
+    await expect(chip(1)).toHaveText("חסום");
+    await expect(page.locator(".agm-status--blocked")).toHaveCount(1);
+  });
 });

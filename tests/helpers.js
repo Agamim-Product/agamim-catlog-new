@@ -12,15 +12,15 @@ const PROFILE = {
  * Starts the page already signed in (the app keeps its sign-in in sessionStorage under "auth").
  * Pass { profile: false } to leave the first-visit profile unset.
  */
-async function signIn(page, { profile = true } = {}) {
+async function signIn(page, { profile = true, role = "user" } = {}) {
   await page.addInitScript(
-    ({ withProfile, p }) => {
-      sessionStorage.setItem("auth", JSON.stringify({ signedIn: true, role: "user" }));
+    ({ withProfile, p, r }) => {
+      sessionStorage.setItem("auth", JSON.stringify({ signedIn: true, role: r }));
       if (withProfile && !localStorage.getItem("agamim-profile-v1")) {
         localStorage.setItem("agamim-profile-v1", JSON.stringify(p));
       }
     },
-    { withProfile: profile, p: PROFILE }
+    { withProfile: profile, p: PROFILE, r: role }
   );
 }
 

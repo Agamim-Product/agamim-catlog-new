@@ -1,0 +1,7 @@
+﻿district_id,name_he,region_code,hq_city,area_km2,centroid_lat,centroid_lon,updated_at,geom_valid,geom
+1,מחוז צפון,N,נוף הגליל,4100,32.9,35.3,2026-11-03T10:16:49.460Z,true,MULTIPOLYGON(...)
+2,מחוז חיפה,H,חיפה,1700,32.7,35,2026-11-03T10:16:49.461Z,true,MULTIPOLYGON(...)
+3,מחוז מרכז,C,רמלה,1500,32,34.9,2026-11-03T10:16:49.462Z,true,MULTIPOLYGON(...)
+4,מחוז תל אביב,TA,תל אביב-יפו,190,32.08,34.78,2026-11-03T10:16:49.463Z,true,MULTIPOLYGON(...)
+5,מחוז ירושלים,J,ירושלים,650,31.77,35.21,2026-11-03T10:16:49.464Z,true,MULTIPOLYGON(...)
+6,מחוז דרום,S,באר שבע,13200,30.8,34.9,2026-11-03T10:16:49.465Z,true,MULTIPOLYGON(...)

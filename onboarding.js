@@ -119,7 +119,11 @@
     var endDate = el("input", { id: "ob-end", type: "date", min: todayISO(), required: "" });
 
     var form = el("form", { class: "ob-card", novalidate: "" }, [
-      el("img", { class: "ob-logo", src: "./agamim-logo.png", alt: "" }),
+      el("div", { class: "ob-logos" }, [
+        el("img", { src: "./pakar-logo.svg", alt: "פיקוד העורף" }),
+        el("img", { src: "./agamim-emblem.png", alt: "סמל ענף אגמים" }),
+        el("img", { src: "./agamim-logo.png", alt: "ענף אגמים" })
+      ]),
       el("h1", { text: t.title }),
       el("p", { class: "ob-sub", text: t.subtitle }),
       field("ob-name", t.name, name, "ob-name-err"),

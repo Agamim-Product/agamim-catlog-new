@@ -117,3 +117,56 @@ html.ob-lock body {
 #agamim-onboarding .ob-submit:hover {
   background: #c9611a;
 }
+
+/* ===== Home Front Command house style ===== */
+#agamim-onboarding {
+  font-family: "Rubik", "Heebo", system-ui, sans-serif;
+  color: #14283c;
+  background: linear-gradient(172deg, #003c80 0%, #166497 52%, #12324f 100%);
+}
+#agamim-onboarding .ob-card {
+  max-width: 460px;
+  padding: 28px 30px 26px;
+  border-radius: 24px;
+  box-shadow: 0 24px 60px rgba(0, 20, 50, 0.4);
+}
+#agamim-onboarding .ob-logos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 0 auto 16px;
+}
+#agamim-onboarding .ob-logos img {
+  display: block;
+  height: 60px;
+  width: auto;
+  object-fit: contain;
+}
+#agamim-onboarding h1 { color: #003c80; }
+#agamim-onboarding .ob-sub { color: #4f6178; }
+#agamim-onboarding label { color: #14283c; }
+#agamim-onboarding input,
+#agamim-onboarding select {
+  min-height: 46px;
+  padding: 8px 18px;
+  color: #14283c;
+  border: 1px solid #8ca0b8;
+  border-radius: 999px;
+}
+#agamim-onboarding input[readonly] { background: #eef2fb; color: #4f6178; }
+#agamim-onboarding input:focus-visible,
+#agamim-onboarding select:focus-visible,
+#agamim-onboarding .ob-submit:focus-visible {
+  outline: 3px solid #fba030;
+  outline-offset: 2px;
+}
+#agamim-onboarding .ob-invalid { border-color: #d52330; }
+#agamim-onboarding .ob-error { color: #d52330; }
+#agamim-onboarding .ob-submit {
+  min-height: 50px;
+  color: #14283c;
+  background: #fba030;
+  border-radius: 999px;
+}
+#agamim-onboarding .ob-submit:hover { background: #ffb04f; }
